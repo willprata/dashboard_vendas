@@ -14,23 +14,25 @@ st.set_page_config(
 
 
 # =========================================================
-# ESTILO VISUAL
+# ESTILO VISUAL - TEMA ESCURO
 # =========================================================
 
 st.markdown("""
 <style>
 
-    /* Fundo geral */
+    /* Fundo principal */
     .stApp {
-        background: linear-gradient(
-            135deg,
-            #f4f8fc 0%,
-            #eef5fb 50%,
-            #f8fbfe 100%
-        );
+        background:
+            radial-gradient(
+                circle at 80% 10%,
+                #183b63 0%,
+                #0b1b2d 35%,
+                #07111f 100%
+            );
+        color: #eaf3ff;
     }
 
-    /* Espaçamento principal */
+    /* Área principal */
     .block-container {
         padding-top: 2rem;
         padding-bottom: 2rem;
@@ -40,28 +42,29 @@ st.markdown("""
 
     /* Sidebar */
     section[data-testid="stSidebar"] {
-        background: linear-gradient(
-            180deg,
-            #f8fbff 0%,
-            #edf5fc 100%
-        );
+        background:
+            linear-gradient(
+                180deg,
+                #142b46 0%,
+                #0b1d31 100%
+            );
 
-        border-right: 1px solid #d9e6f2;
+        border-right: 1px solid #27496b;
     }
 
     section[data-testid="stSidebar"] h1,
     section[data-testid="stSidebar"] h2,
     section[data-testid="stSidebar"] h3 {
-        color: #173f6f;
+        color: #f2f7ff;
     }
 
     section[data-testid="stSidebar"] p {
-        color: #617891;
+        color: #b8cbe0;
     }
 
     /* Título */
     .titulo-principal {
-        color: #123f73;
+        color: #f4f8ff;
         font-size: 38px;
         font-weight: 750;
         letter-spacing: -1px;
@@ -69,7 +72,7 @@ st.markdown("""
     }
 
     .subtitulo {
-        color: #6c8197;
+        color: #9db6d1;
         font-size: 15px;
         margin-bottom: 10px;
     }
@@ -81,8 +84,8 @@ st.markdown("""
 
         background: linear-gradient(
             90deg,
-            #2f80ed,
-            #56ccf2
+            #2196f3,
+            #4dd0ff
         );
 
         border-radius: 10px;
@@ -91,11 +94,16 @@ st.markdown("""
         margin-bottom: 22px;
     }
 
-    /* Cards das métricas */
+    /* Cards */
     [data-testid="stMetric"] {
-        background: rgba(255, 255, 255, 0.95);
+        background:
+            linear-gradient(
+                145deg,
+                rgba(25, 61, 99, 0.95),
+                rgba(10, 32, 57, 0.98)
+            );
 
-        border: 1px solid #d9e6f2;
+        border: 1px solid #28547d;
 
         border-radius: 16px;
 
@@ -104,16 +112,18 @@ st.markdown("""
         min-height: 125px;
 
         box-shadow:
-            0 5px 18px rgba(36, 75, 120, 0.08);
+            0 8px 25px rgba(0, 0, 0, 0.25);
     }
 
     [data-testid="stMetric"]:hover {
+        border-color: #318ce7;
+
         box-shadow:
-            0 8px 24px rgba(36, 75, 120, 0.13);
+            0 10px 30px rgba(0, 120, 255, 0.18);
     }
 
     [data-testid="stMetricLabel"] {
-        color: #71859a !important;
+        color: #a9c3df !important;
 
         font-size: 12px !important;
 
@@ -123,7 +133,7 @@ st.markdown("""
     }
 
     [data-testid="stMetricValue"] {
-        color: #123f73 !important;
+        color: #f5f9ff !important;
 
         font-size: 28px !important;
 
@@ -132,7 +142,7 @@ st.markdown("""
 
     /* Títulos das seções */
     .titulo-secao {
-        color: #173f6f;
+        color: #eaf4ff;
 
         font-size: 21px;
 
@@ -145,7 +155,7 @@ st.markdown("""
 
     /* Títulos dos gráficos */
     .titulo-grafico {
-        color: #244f7d;
+        color: #dcecff;
 
         font-size: 15px;
 
@@ -154,12 +164,21 @@ st.markdown("""
         margin-bottom: 8px;
     }
 
+    /* Containers dos gráficos */
+    [data-testid="stVerticalBlockBorderWrapper"] {
+        background: rgba(15, 39, 66, 0.70);
+
+        border: 1px solid #254b70;
+
+        border-radius: 15px;
+    }
+
     /* Botão de download */
     .stDownloadButton button {
         background: linear-gradient(
             135deg,
-            #1769aa,
-            #2587d8
+            #0878d1,
+            #2196f3
         );
 
         color: white;
@@ -172,23 +191,30 @@ st.markdown("""
     }
 
     .stDownloadButton button:hover {
-        background: #12578e;
+        background: #0a69b7;
         color: white;
     }
 
     /* Tabela */
     [data-testid="stDataFrame"] {
         border-radius: 12px;
+
         overflow: hidden;
 
-        border: 1px solid #d9e6f2;
+        border: 1px solid #294d70;
+    }
+
+    /* Textos gerais */
+    .stMarkdown,
+    .stText {
+        color: #d9e8f7;
     }
 
     /* Rodapé */
     .rodape {
         text-align: center;
 
-        color: #8aa0b5;
+        color: #718ca8;
 
         font-size: 12px;
 
