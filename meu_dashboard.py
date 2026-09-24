@@ -4,7 +4,7 @@ import plotly.express as px
 
 
 # ============================================================
-# CONFIGURAÇÃO DA PÁGINA
+# CONFIGURAÇÃO
 # ============================================================
 
 st.set_page_config(
@@ -15,133 +15,109 @@ st.set_page_config(
 
 
 # ============================================================
-# ESTILO VISUAL
+# ESTILO
 # ============================================================
 
 st.markdown("""
 <style>
 
-    /* FUNDO PRINCIPAL */
-    .stApp {
-        background: #071b2e;
-        color: #ffffff;
-    }
+.stApp {
+    background-color: #071b2e;
+    color: white;
+}
 
-    /* ÁREA PRINCIPAL */
-    .main .block-container {
-        padding-top: 2rem;
-        padding-bottom: 3rem;
-        max-width: 1400px;
-    }
+.main .block-container {
+    padding-top: 2rem;
+    padding-bottom: 3rem;
+    max-width: 1400px;
+}
 
-    /* SIDEBAR */
-    section[data-testid="stSidebar"] {
-        background: #0b2944;
-        border-right: 1px solid #21496d;
-    }
+/* TÍTULO */
 
-    section[data-testid="stSidebar"] * {
-        color: #ffffff !important;
-    }
+.titulo {
+    font-size: 42px;
+    font-weight: 700;
+    color: white;
+}
 
-    /* TÍTULO */
-    .titulo {
-        font-size: 42px;
-        font-weight: 700;
-        color: #ffffff;
-        margin-bottom: 5px;
-    }
+.subtitulo {
+    color: #9fc4e8;
+    font-size: 16px;
+    margin-bottom: 25px;
+}
 
-    .subtitulo {
-        font-size: 16px;
-        color: #9fc4e8;
-        margin-bottom: 25px;
-    }
+.linha {
+    width: 65px;
+    height: 4px;
+    background-color: #29b6f6;
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-bottom: 25px;
+}
 
-    .linha-titulo {
-        width: 65px;
-        height: 4px;
-        background: #29b6f6;
-        border-radius: 10px;
-        margin-bottom: 25px;
-    }
 
-    /* CARDS */
-    .cards-container {
-        display: flex;
-        gap: 16px;
-        margin-bottom: 35px;
-    }
+/* SIDEBAR */
 
-    .card {
-        flex: 1;
-        background: #103553;
-        border: 1px solid #235b83;
-        border-radius: 16px;
-        padding: 22px;
-        min-height: 125px;
-        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.20);
-    }
+section[data-testid="stSidebar"] {
+    background-color: #0b2944;
+    border-right: 1px solid #21496d;
+}
 
-    .card-titulo {
-        font-size: 14px;
-        color: #9fc4e8;
-        margin-bottom: 12px;
-    }
+section[data-testid="stSidebar"] * {
+    color: white !important;
+}
 
-    .card-valor {
-        font-size: 28px;
-        font-weight: 700;
-        color: #ffffff;
-    }
 
-    /* TÍTULOS DAS SEÇÕES */
-    .secao {
-        font-size: 23px;
-        font-weight: 700;
-        color: #ffffff;
-        margin-top: 15px;
-        margin-bottom: 20px;
-    }
+/* CARDS */
 
-    .grafico-titulo {
-        font-size: 16px;
-        font-weight: 600;
-        color: #d7eaff;
-        margin-bottom: 8px;
-    }
+[data-testid="stMetric"] {
+    background-color: #103553;
+    border: 1px solid #245b82;
+    border-radius: 15px;
+    padding: 22px;
+    box-shadow: 0px 5px 15px rgba(0,0,0,0.20);
+}
 
-    /* CAIXAS DOS GRÁFICOS */
-    .grafico-box {
-        background: #0e2d49;
-        border: 1px solid #1d4d70;
-        border-radius: 15px;
-        padding: 10px;
-        margin-bottom: 25px;
-    }
+[data-testid="stMetricLabel"] {
+    color: #9fc4e8 !important;
+}
 
-    /* TEXTO DA SIDEBAR */
-    .sidebar-titulo {
-        font-size: 23px;
-        font-weight: 700;
-        color: #ffffff;
-        margin-bottom: 10px;
-    }
+[data-testid="stMetricValue"] {
+    color: white !important;
+}
 
-    .sidebar-texto {
-        font-size: 14px;
-        color: #a9c9e5;
-        line-height: 1.6;
-    }
 
-    /* TABELA */
-    .tabela-titulo {
-        font-size: 23px;
-        font-weight: 700;
-        color: #ffffff;
-        margin-top: 20px;
-        margin-bottom: 15px;
-    }
+/* TÍTULOS */
+
+.secao {
+    color: white;
+    font-size: 23px;
+    font-weight: 700;
+    margin-top: 35px;
+    margin-bottom: 15px;
+}
+
+.grafico-titulo {
+    color: #d7eaff;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+
+/* BOTÃO */
+
+.stDownloadButton button {
+    background-color: #168bd0;
+    color: white;
+    border: none;
+    border-radius: 8px;
+}
+
+.stDownloadButton button:hover {
+    background-color: #29b6f6;
+    color: white;
+}
 
 </style>
 """, unsafe_allow_html=True)
@@ -153,6 +129,7 @@ st.markdown("""
 
 @st.cache_data
 def carregar_dados():
+
     return pd.read_csv("retail_sales_dataset.csv")
 
 
@@ -165,56 +142,59 @@ df["Date"] = pd.to_datetime(df["Date"])
 # SIDEBAR
 # ============================================================
 
-st.sidebar.markdown("""
-<div class="sidebar-titulo">📊 Dashboard</div>
-<hr>
-""", unsafe_allow_html=True)
+st.sidebar.title("📊 Dashboard")
 
-st.sidebar.markdown("""
-<div class="sidebar-titulo">🎯 Filtros</div>
+st.sidebar.markdown("---")
 
-<div class="sidebar-texto">
-Utilize os filtros para analisar os dados.
-</div>
-""", unsafe_allow_html=True)
+st.sidebar.subheader("🎯 Filtros")
+
+st.sidebar.write(
+    "Utilize os filtros para analisar os dados."
+)
 
 
-# FILTRO DE CATEGORIA
+# ============================================================
+# FILTRO CATEGORIA
+# ============================================================
 
-lista_de_categorias = sorted(
+categorias = sorted(
     df["Product Category"].unique()
 )
 
 categorias_selecionadas = st.sidebar.multiselect(
     "Categorias",
-    options=lista_de_categorias,
-    default=lista_de_categorias
+    options=categorias,
+    default=categorias
 )
 
 
-# FILTRO DE GÊNERO
+# ============================================================
+# FILTRO GÊNERO
+# ============================================================
 
-lista_de_generos = sorted(
+generos = sorted(
     df["Gender"].unique()
 )
 
 generos_selecionados = st.sidebar.multiselect(
     "Gênero",
-    options=lista_de_generos,
-    default=lista_de_generos
+    options=generos,
+    default=generos
 )
 
 
+# ============================================================
 # FILTRO DE DATA
+# ============================================================
 
-data_inicial = df["Date"].min()
-data_final = df["Date"].max()
+data_minima = df["Date"].min().date()
+data_maxima = df["Date"].max().date()
 
 periodo = st.sidebar.date_input(
     "Período",
-    value=(data_inicial, data_final),
-    min_value=data_inicial,
-    max_value=data_final
+    value=(data_minima, data_maxima),
+    min_value=data_minima,
+    max_value=data_maxima
 )
 
 
@@ -224,7 +204,8 @@ periodo = st.sidebar.date_input(
 
 df_filtrado = df[
     df["Product Category"].isin(categorias_selecionadas)
-    & df["Gender"].isin(generos_selecionados)
+    &
+    df["Gender"].isin(generos_selecionados)
 ].copy()
 
 
@@ -235,7 +216,8 @@ if len(periodo) == 2:
 
     df_filtrado = df_filtrado[
         (df_filtrado["Date"] >= data_inicio)
-        & (df_filtrado["Date"] <= data_fim)
+        &
+        (df_filtrado["Date"] <= data_fim)
     ]
 
 
@@ -249,7 +231,7 @@ st.markdown(
 )
 
 st.markdown(
-    '<div class="linha-titulo"></div>',
+    '<div class="linha"></div>',
     unsafe_allow_html=True
 )
 
@@ -262,7 +244,7 @@ st.markdown(
 
 
 # ============================================================
-# CÁLCULO DAS MÉTRICAS
+# MÉTRICAS
 # ============================================================
 
 receita_total = df_filtrado["Total Amount"].sum()
@@ -272,44 +254,51 @@ total_pedidos = df_filtrado["Transaction ID"].nunique()
 quantidade_vendida = df_filtrado["Quantity"].sum()
 
 if total_pedidos > 0:
+
     ticket_medio = receita_total / total_pedidos
+
 else:
+
     ticket_medio = 0
 
 
+col1, col2, col3, col4 = st.columns(4)
+
+
+with col1:
+
+    st.metric(
+        "💰 Receita Total",
+        f"R$ {receita_total:,.2f}"
+    )
+
+
+with col2:
+
+    st.metric(
+        "🛒 Total de Pedidos",
+        total_pedidos
+    )
+
+
+with col3:
+
+    st.metric(
+        "📦 Quantidade Vendida",
+        quantidade_vendida
+    )
+
+
+with col4:
+
+    st.metric(
+        "🎟️ Ticket Médio",
+        f"R$ {ticket_medio:,.2f}"
+    )
+
+
 # ============================================================
-# CARDS
-# ============================================================
-
-st.markdown(f"""
-<div class="cards-container">
-
-    <div class="card">
-        <div class="card-titulo">💰 RECEITA TOTAL</div>
-        <div class="card-valor">R$ {receita_total:,.2f}</div>
-    </div>
-
-    <div class="card">
-        <div class="card-titulo">🛒 TOTAL DE PEDIDOS</div>
-        <div class="card-valor">{total_pedidos}</div>
-    </div>
-
-    <div class="card">
-        <div class="card-titulo">📦 QUANTIDADE VENDIDA</div>
-        <div class="card-valor">{quantidade_vendida}</div>
-    </div>
-
-    <div class="card">
-        <div class="card-titulo">🎟️ TICKET MÉDIO</div>
-        <div class="card-valor">R$ {ticket_medio:,.2f}</div>
-    </div>
-
-</div>
-""", unsafe_allow_html=True)
-
-
-# ============================================================
-# DESEMPENHO
+# DESEMPENHO DAS VENDAS
 # ============================================================
 
 st.markdown(
@@ -322,7 +311,7 @@ col1, col2 = st.columns(2)
 
 
 # ============================================================
-# GRÁFICO 1 - EVOLUÇÃO MENSAL
+# EVOLUÇÃO MENSAL
 # ============================================================
 
 with col1:
@@ -336,30 +325,40 @@ with col1:
 
     dados_mensais = (
         df_filtrado
-        .groupby(df_filtrado["Date"].dt.strftime("%Y-%m"))["Total Amount"]
+        .groupby(
+            df_filtrado["Date"].dt.strftime("%Y-%m")
+        )["Total Amount"]
         .sum()
         .reset_index()
     )
 
-    dados_mensais.columns = ["Mês", "Receita"]
+    dados_mensais.columns = [
+        "Mês",
+        "Receita"
+    ]
 
-    grafico_linha = px.area(
+    grafico_mensal = px.area(
         dados_mensais,
         x="Mês",
         y="Receita"
     )
 
-    grafico_linha.update_traces(
-        line=dict(color="#29b6f6"),
-        fillcolor="rgba(41, 182, 246, 0.35)"
+    grafico_mensal.update_traces(
+        line_color="#29b6f6",
+        fillcolor="rgba(41,182,246,0.35)"
     )
 
-    grafico_linha.update_layout(
+    grafico_mensal.update_layout(
         height=380,
-        margin=dict(l=10, r=10, t=10, b=10),
         paper_bgcolor="#0e2d49",
         plot_bgcolor="#0e2d49",
-        font=dict(color="#d7eaff"),
+        font_color="#d7eaff",
+        margin=dict(
+            l=10,
+            r=10,
+            t=10,
+            b=10
+        ),
         xaxis=dict(
             title="",
             gridcolor="#234866"
@@ -371,13 +370,13 @@ with col1:
     )
 
     st.plotly_chart(
-        grafico_linha,
+        grafico_mensal,
         use_container_width=True
     )
 
 
 # ============================================================
-# GRÁFICO 2 - RECEITA POR CATEGORIA
+# RECEITA POR CATEGORIA
 # ============================================================
 
 with col2:
@@ -396,7 +395,10 @@ with col2:
         .reset_index()
     )
 
-    dados_categoria.columns = ["Categoria", "Receita"]
+    dados_categoria.columns = [
+        "Categoria",
+        "Receita"
+    ]
 
     grafico_categoria = px.bar(
         dados_categoria,
@@ -410,10 +412,15 @@ with col2:
 
     grafico_categoria.update_layout(
         height=380,
-        margin=dict(l=10, r=10, t=10, b=10),
         paper_bgcolor="#0e2d49",
         plot_bgcolor="#0e2d49",
-        font=dict(color="#d7eaff"),
+        font_color="#d7eaff",
+        margin=dict(
+            l=10,
+            r=10,
+            t=10,
+            b=10
+        ),
         xaxis=dict(
             title="",
             gridcolor="#234866"
@@ -431,7 +438,7 @@ with col2:
 
 
 # ============================================================
-# RESUMO POR GÊNERO
+# ANÁLISE POR GÊNERO
 # ============================================================
 
 st.markdown(
@@ -439,10 +446,13 @@ st.markdown(
     unsafe_allow_html=True
 )
 
+
 col3, col4 = st.columns(2)
 
 
-# GRÁFICO DE RECEITA POR GÊNERO
+# ============================================================
+# RECEITA POR GÊNERO
+# ============================================================
 
 with col3:
 
@@ -453,7 +463,10 @@ with col3:
         .reset_index()
     )
 
-    dados_genero.columns = ["Gênero", "Receita"]
+    dados_genero.columns = [
+        "Gênero",
+        "Receita"
+    ]
 
     grafico_genero = px.bar(
         dados_genero,
@@ -467,10 +480,15 @@ with col3:
 
     grafico_genero.update_layout(
         height=350,
-        margin=dict(l=10, r=10, t=10, b=10),
         paper_bgcolor="#0e2d49",
         plot_bgcolor="#0e2d49",
-        font=dict(color="#d7eaff"),
+        font_color="#d7eaff",
+        margin=dict(
+            l=10,
+            r=10,
+            t=10,
+            b=10
+        ),
         xaxis=dict(
             title="",
             gridcolor="#234866"
@@ -487,7 +505,9 @@ with col3:
     )
 
 
-# GRÁFICO DE QUANTIDADE POR GÊNERO
+# ============================================================
+# QUANTIDADE POR GÊNERO
+# ============================================================
 
 with col4:
 
@@ -498,7 +518,10 @@ with col4:
         .reset_index()
     )
 
-    quantidade_genero.columns = ["Gênero", "Quantidade"]
+    quantidade_genero.columns = [
+        "Gênero",
+        "Quantidade"
+    ]
 
     grafico_quantidade = px.bar(
         quantidade_genero,
@@ -512,10 +535,15 @@ with col4:
 
     grafico_quantidade.update_layout(
         height=350,
-        margin=dict(l=10, r=10, t=10, b=10),
         paper_bgcolor="#0e2d49",
         plot_bgcolor="#0e2d49",
-        font=dict(color="#d7eaff"),
+        font_color="#d7eaff",
+        margin=dict(
+            l=10,
+            r=10,
+            t=10,
+            b=10
+        ),
         xaxis=dict(
             title="",
             gridcolor="#234866"
@@ -537,7 +565,7 @@ with col4:
 # ============================================================
 
 st.markdown(
-    '<div class="tabela-titulo">📋 Dados das Vendas</div>',
+    '<div class="secao">📋 Dados das Vendas</div>',
     unsafe_allow_html=True
 )
 
